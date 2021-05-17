@@ -20,6 +20,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.dhananjay.ddtrestaurant.ForgotPasswordFragment
 import com.dhananjay.ddtrestaurant.R
 import com.dhananjay.ddtrestaurant.activity.LoginActivity
 import com.dhananjay.ddtrestaurant.activity.MainActivity
@@ -87,8 +88,11 @@ class LoginFragment : Fragment() {
             transaction.commit()
         }
         txtForgotPass.setOnClickListener{
-            val intent = Intent(view.context,RegisterUserFragment::class.java)
-            startActivity(intent)
+            val transaction = activity!!.supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.frame, ForgotPasswordFragment())
+//            transaction.disallowAddToBackStack()
+            transaction.addToBackStack("1")
+            transaction.commit()
         }
 
     }

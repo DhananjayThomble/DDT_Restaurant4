@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import com.dhananjay.ddtrestaurant.R
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +15,13 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPrefUser : SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
 
-        Log.d("test1", sharedPrefUser.getString("name", false.toString()).toString())
+        val txtLogout : TextView = findViewById(R.id.txtLogout)
+        txtLogout.setOnClickListener {
+            logout()
+            finish()
+        }
+
+//        Log.d("test1", sharedPrefUser.getString("name", false.toString()).toString())
 
 //        logout()
 
