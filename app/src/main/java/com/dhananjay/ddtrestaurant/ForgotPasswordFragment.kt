@@ -82,12 +82,12 @@ class ForgotPasswordFragment : Fragment() {
 //                            Stores data in sharedPref
                             val sharedPrefUser: SharedPreferences =
                                 myActivity.getSharedPreferences("userForgot", Context.MODE_PRIVATE)
-                            val nEmail = obj.getJSONObject("data").getString("email").toString()
-                            val nMobile =
-                                obj.getJSONObject("data").getString("mobile_number").toString()
+//                            val nEmail = obj.getJSONObject("data").getString("email").toString()
+//                            val nMobile =
+//                                obj.getJSONObject("data").getString("mobile_number").toString()
 
-                            sharedPrefUser.edit().putString("email", nEmail).apply()
-                            sharedPrefUser.edit().putString("mobile", nMobile).apply()
+                            sharedPrefUser.edit().putString("email", email).apply()
+                            sharedPrefUser.edit().putString("mobile", mobile).apply()
 
 // Check 1st or more attempt
                             if (obj.getString("first_try").toBoolean()) {
@@ -99,7 +99,14 @@ class ForgotPasswordFragment : Fragment() {
 //                                transaction.addToBackStack("1")
                                 transaction.commit()
                             } else {
+                                Log.d("test1","second called")
 //                                Req for other times
+                                val transaction =
+                                    activity!!.supportFragmentManager.beginTransaction()
+                                transaction.replace(R.id.frame, ResetPasswordFragment())
+//            transaction.disallowAddToBackStack()
+//                                transaction.addToBackStack("1")
+                                transaction.commit()
                             }
 
                         } else {
@@ -113,7 +120,7 @@ class ForgotPasswordFragment : Fragment() {
                         }
 //
                     } catch (err: Exception) {
-                        Log.d("test1", "error occ1")
+                        Log.d("test1", "error occ1 ${err.toString()}")
                         Toasty.error(myActivity, "Something is wrong! Try Again", Toast.LENGTH_LONG)
                             .show()
                     }
