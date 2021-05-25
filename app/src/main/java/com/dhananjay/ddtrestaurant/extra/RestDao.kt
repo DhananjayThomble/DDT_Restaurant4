@@ -1,4 +1,4 @@
-package com.dhananjay.ddtrestaurant
+package com.dhananjay.ddtrestaurant.extra
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -16,10 +16,10 @@ interface RestDao {
     @Delete
     fun deleteRest(bookEntity: RestaurantEntity)
 
-    @Query("SELECT * FROM restdb")
+    @Query("SELECT * FROM RestDb")
     fun getAllRest(): List<RestaurantEntity>
 
-    @Query("SELECT * FROM restdb WHERE res_id = :restId")
+    @Query("SELECT * FROM RestDb WHERE res_id = :restId")
     fun getRestById(restId: String): RestaurantEntity
 }
 

@@ -1,4 +1,4 @@
-package com.dhananjay.ddtrestaurant
+package com.dhananjay.ddtrestaurant.extra
 
 data class Restaurant(
     var rId: String,

@@ -13,16 +13,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.dhananjay.ddtrestaurant.ForgotPasswordFragment
 import com.dhananjay.ddtrestaurant.R
-import com.dhananjay.ddtrestaurant.activity.LoginActivity
 import com.dhananjay.ddtrestaurant.activity.MainActivity
 import com.dhananjay.ddtrestaurant.util.ConnectionManager
 import com.google.gson.Gson
@@ -81,14 +77,14 @@ class LoginFragment : Fragment() {
 
         txtRegister.setOnClickListener{
 //            Open Register Fragment & closes current fragment
-            val transaction = activity!!.supportFragmentManager.beginTransaction()
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
             transaction.replace(R.id.frame, RegisterUserFragment())
 //            transaction.disallowAddToBackStack()
             transaction.addToBackStack("1")
             transaction.commit()
         }
         txtForgotPass.setOnClickListener{
-            val transaction = activity!!.supportFragmentManager.beginTransaction()
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
             transaction.replace(R.id.frame, ForgotPasswordFragment())
 //            transaction.disallowAddToBackStack()
             transaction.addToBackStack("1")

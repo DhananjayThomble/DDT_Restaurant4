@@ -1,4 +1,4 @@
-package com.dhananjay.ddtrestaurant
+package com.dhananjay.ddtrestaurant.extra
 
 open class ResId {
     lateinit var id : String

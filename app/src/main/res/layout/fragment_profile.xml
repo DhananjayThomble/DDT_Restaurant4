@@ -3,15 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:background="#ffffff">
 
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_baseline_person_24"
+        />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtName"
+        style="@style/TextAppearance.Medium.Bold"
+        android:textSize="30sp"
         android:text="name"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtPhone"
+        android:textSize="20sp"
+        android:text="Phone"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtEmail"
+        android:textSize="20sp"
+        android:text="Email"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtAddress"
+        android:textSize="20sp"
+        android:text="Address"
         />
 
 

@@ -1,4 +1,4 @@
-package com.dhananjay.ddtrestaurant
+package com.dhananjay.ddtrestaurant.extra
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

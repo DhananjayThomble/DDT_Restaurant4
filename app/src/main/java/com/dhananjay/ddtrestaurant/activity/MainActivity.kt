@@ -1,20 +1,24 @@
 package com.dhananjay.ddtrestaurant.activity
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.os.AsyncTask
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.dhananjay.ddtrestaurant.DashboardFragment
-import com.dhananjay.ddtrestaurant.R
+import androidx.room.Room
+import com.dhananjay.ddtrestaurant.*
+import com.dhananjay.ddtrestaurant.extra.MenuDatabase
+import com.dhananjay.ddtrestaurant.fragment.DashboardFragment
+import com.dhananjay.ddtrestaurant.fragment.FavouriteFragment
+import com.dhananjay.ddtrestaurant.fragment.ProfileFragment
 import com.google.android.material.navigation.NavigationView
 
 
@@ -46,6 +50,25 @@ class MainActivity : AppCompatActivity() {
 //        logout()
 
         openDashboard()
+        clearCartDb()
+
+    }
+    fun clearCartDb(){
+        DBAsyncTask(this).execute()
+
+    }
+    class DBAsyncTask(val context: Context) :
+        AsyncTask<Void, Void, Boolean>() {
+
+        val db = Room.databaseBuilder(context, MenuDatabase::class.java, "MenuDb").build()
+
+        override fun doInBackground(vararg p0: Void?): Boolean {
+            db.menuDao().deleteAll()
+
+            db.close()
+
+            return true
+        }
 
     }
     private fun initNavigationMenu() {
@@ -115,7 +138,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openLogout() {
-        TODO("Not yet implemented")
+        logout()
+        val intent = Intent(this,LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun openFaq() {
@@ -127,11 +153,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openFavourite() {
-        TODO("Not yet implemented")
+        val fragment = FavouriteFragment()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame, fragment)
+        transaction.commit()
+        supportActionBar?.title = "Favourites"
+        navigationView.setCheckedItem(R.id.nav_favourite)
     }
 
     private fun openProfile() {
-        TODO("Not yet implemented")
+        val fragment = ProfileFragment()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame, fragment)
+        transaction.commit()
+        supportActionBar?.title = "Profile"
+        navigationView.setCheckedItem(R.id.nav_profile)
     }
 
     private fun openDashboard() {
@@ -146,15 +182,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun initToolbar() {
-        toolbar = findViewById<View>(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
-       var actionBar : ActionBar? = supportActionBar
-        actionBar!!.setDisplayHomeAsUpEnabled(true)
-        actionBar!!.setHomeButtonEnabled(true)
-        actionBar!!.title = "DDT Restaurant"
-//        Tools::java.setSystemBarColor(this)
-    }
+        private fun initToolbar() {
+            toolbar = findViewById<View>(R.id.toolbar) as Toolbar
+            setSupportActionBar(toolbar)
+           var actionBar : ActionBar? = supportActionBar
+            actionBar!!.setDisplayHomeAsUpEnabled(true)
+            actionBar!!.setHomeButtonEnabled(true)
+            actionBar!!.title = "DDT Restaurant"
+    //        Tools::java.setSystemBarColor(this)
+        }
 
     fun setUpToolbar() {
         setSupportActionBar(toolbar)

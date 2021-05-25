@@ -1,4 +1,4 @@
-package com.dhananjay.ddtrestaurant
+package com.dhananjay.ddtrestaurant.fragment
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -20,6 +20,9 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.dhananjay.ddtrestaurant.adapter.DashboardRecyclerAdapter
+import com.dhananjay.ddtrestaurant.R
+import com.dhananjay.ddtrestaurant.extra.Restaurant
 import com.dhananjay.ddtrestaurant.util.ConnectionManager
 import org.json.JSONException
 import java.util.*
@@ -41,7 +44,9 @@ class DashboardFragment : Fragment() {
 
     val restInfoList = arrayListOf<Restaurant>()
 
-    var ratingComparator = Comparator<Restaurant>{rest1, rest2 ->
+
+
+    var ratingComparator = Comparator<Restaurant>{ rest1, rest2 ->
 
         if (rest1.rRating.compareTo(rest2.rRating, true) == 0) {
             // sort according to name if rating is same
@@ -71,6 +76,7 @@ class DashboardFragment : Fragment() {
         progressLayout.visibility = View.VISIBLE
 
         layoutManager = LinearLayoutManager(activity)
+
 
 
 
@@ -159,6 +165,10 @@ class DashboardFragment : Fragment() {
 
         return view
     }
+
+
+
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_dashboard, menu)
     }

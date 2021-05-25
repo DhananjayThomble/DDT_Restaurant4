@@ -1,4 +1,4 @@
-package com.dhananjay.ddtrestaurant
+package com.dhananjay.ddtrestaurant.fragment
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -15,6 +15,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.dhananjay.ddtrestaurant.R
 import com.dhananjay.ddtrestaurant.util.ConnectionManager
 import es.dmoral.toasty.Toasty
 import org.json.JSONObject

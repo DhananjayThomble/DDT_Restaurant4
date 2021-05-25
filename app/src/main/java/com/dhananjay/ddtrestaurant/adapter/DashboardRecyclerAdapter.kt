@@ -1,9 +1,8 @@
-package com.dhananjay.ddtrestaurant
+package com.dhananjay.ddtrestaurant.adapter
 
 import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,22 +10,17 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.dhananjay.ddtrestaurant.activity.LoginActivity
-import com.dhananjay.ddtrestaurant.activity.MainActivity
+import com.dhananjay.ddtrestaurant.*
+import com.dhananjay.ddtrestaurant.extra.ResId
+import com.dhananjay.ddtrestaurant.extra.RestDatabase
+import com.dhananjay.ddtrestaurant.extra.Restaurant
+import com.dhananjay.ddtrestaurant.extra.RestaurantEntity
 import com.dhananjay.ddtrestaurant.fragment.MenuFragment
-
-import com.dhananjay.ddtrestaurant.RestDatabase
 
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
-
-//import com.internshala.bookhub.R
-//import com.internshala.bookhub.activity.DescriptionActivity
-//import com.internshala.bookhub.model.Book
-
 
 class DashboardRecyclerAdapter(val context: Context, val itemList: ArrayList<Restaurant>) :
     RecyclerView.Adapter<DashboardRecyclerAdapter.DashboardViewHolder>() {
@@ -79,13 +73,14 @@ class DashboardRecyclerAdapter(val context: Context, val itemList: ArrayList<Res
 //            intent.putExtra("rest_id", rest.rId )
 //            context.startActivity(intent)
 //            Toasty.normal(context, "", Toast.LENGTH_LONG).show()
-            Log.d("test1","Clicked from holder - ${rest.rId} & ResName = ${rest.rName}")
+//            Log.d("test1","Clicked from holder - ${rest.rId} & ResName = ${rest.rName}")
             val temp = ResId()
             temp.setResId(rest.rId)
 
 //            val myActivity : MainActivity = MainActivity()
             val intent: Intent = Intent(context, MenuFragment::class.java)
             intent.putExtra("resId", rest.rId)
+            intent.putExtra("resName",rest.rName)
 
 
 
@@ -102,8 +97,8 @@ class DashboardRecyclerAdapter(val context: Context, val itemList: ArrayList<Res
                 resRating = rest.rRating
             )
 
-            Log.d("test1","clicked from adpter")
-            Log.d("test1","R = $resEntity")
+//            Log.d("test1","clicked from adpter")
+//            Log.d("test1","R = $resEntity")
             val checkFav = DBAsyncTask(context, resEntity, 1).execute()
             val isFav = checkFav.get()
             if (isFav) {
@@ -179,7 +174,7 @@ class DashboardRecyclerAdapter(val context: Context, val itemList: ArrayList<Res
         Mode 3 -> Remove the favourite book
         * */
 
-        val db = Room.databaseBuilder(context, RestDatabase::class.java, "rest-db").build()
+        val db = Room.databaseBuilder(context, RestDatabase::class.java, "RestDb").build()
 
         override fun doInBackground(vararg p0: Void?): Boolean {
 
@@ -190,7 +185,7 @@ class DashboardRecyclerAdapter(val context: Context, val itemList: ArrayList<Res
                     // Check DB if the book is favourite or not
                     val rest: RestaurantEntity? =
                         db.restDao().getRestById(restEntity.res_id.toString())
-                    Log.d("test1","from 1 - ${rest.toString()} resEntity = ${restEntity.res_id}")
+//                    Log.d("test1","from 1 - ${rest.toString()} resEntity = ${restEntity.res_id}")
                     db.close()
                     return rest != null
 
@@ -200,7 +195,7 @@ class DashboardRecyclerAdapter(val context: Context, val itemList: ArrayList<Res
 
                     // Save the book into DB as favourite
                     db.restDao().insertRest(restEntity)
-                    Log.d("test1","from 2 - saved ,resEntity = ${restEntity.res_id}")
+//                    Log.d("test1","from 2 - saved ,resEntity = ${restEntity.res_id}")
 
                     db.close()
                     return true
@@ -211,7 +206,7 @@ class DashboardRecyclerAdapter(val context: Context, val itemList: ArrayList<Res
 
                     // Remove the favourite book
                     db.restDao().deleteRest(restEntity)
-                    Log.d("test1","from 3 - delete, resEntity = ${restEntity.res_id}")
+//                    Log.d("test1","from 3 - delete, resEntity = ${restEntity.res_id}")
 
                     db.close()
                     return true
