@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private val actionBar: ActionBar? = null
     var previousMenuItem: MenuItem? = null
     lateinit var navigationView: NavigationView
- var sharedPrefUser : SharedPreferences ?= null
+    var sharedPrefUser: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 //        setUpToolbar()
         initToolbar()
         initNavigationMenu()
-         sharedPrefUser  = getSharedPreferences("User", Context.MODE_PRIVATE)
+        sharedPrefUser = getSharedPreferences("User", Context.MODE_PRIVATE)
 //        val inflatedView: View = layoutInflater.inflate(R.layout.include_drawer_header,null)
 //        var txtName: TextView = inflatedView.findViewById(R.id.txtNameHeader)
 //        txtName.setText("Hello")
@@ -53,10 +53,12 @@ class MainActivity : AppCompatActivity() {
         clearCartDb()
 
     }
-    fun clearCartDb(){
+
+    fun clearCartDb() {
         DBAsyncTask(this).execute()
 
     }
+
     class DBAsyncTask(val context: Context) :
         AsyncTask<Void, Void, Boolean>() {
 
@@ -71,13 +73,14 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
     private fun initNavigationMenu() {
         val nav_view = findViewById<View>(R.id.nav_view) as NavigationView
         val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
 
-        val view : View = nav_view.getHeaderView(0)
-        val txtHeader : TextView = view.findViewById(R.id.txtNameHeader)
-        val txtMobile : TextView = view.findViewById(R.id.txtMobileHeader)
+        val view: View = nav_view.getHeaderView(0)
+        val txtHeader: TextView = view.findViewById(R.id.txtNameHeader)
+        val txtMobile: TextView = view.findViewById(R.id.txtMobileHeader)
 //        txtHeader.setText( sharedPrefUser!!.getString("name","") )
 //        txtMobile.setText( sharedPrefUser!!.getString("mobile","") )
 
@@ -93,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener {
 
-            if (previousMenuItem != null){
+            if (previousMenuItem != null) {
                 previousMenuItem?.isChecked = false
             }
 
@@ -101,7 +104,7 @@ class MainActivity : AppCompatActivity() {
             it.isChecked = true
             previousMenuItem = it
 
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.nav_home -> {
                     openDashboard()
                     drawer.closeDrawers()
@@ -139,7 +142,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun openLogout() {
         logout()
-        val intent = Intent(this,LoginActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
     }
@@ -182,15 +185,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-        private fun initToolbar() {
-            toolbar = findViewById<View>(R.id.toolbar) as Toolbar
-            setSupportActionBar(toolbar)
-           var actionBar : ActionBar? = supportActionBar
-            actionBar!!.setDisplayHomeAsUpEnabled(true)
-            actionBar!!.setHomeButtonEnabled(true)
-            actionBar!!.title = "DDT Restaurant"
-    //        Tools::java.setSystemBarColor(this)
-        }
+    private fun initToolbar() {
+        toolbar = findViewById<View>(R.id.toolbar) as Toolbar
+        setSupportActionBar(toolbar)
+        var actionBar: ActionBar? = supportActionBar
+        actionBar!!.setDisplayHomeAsUpEnabled(true)
+        actionBar!!.setHomeButtonEnabled(true)
+        actionBar!!.title = "DDT Restaurant"
+        //        Tools::java.setSystemBarColor(this)
+    }
 
     fun setUpToolbar() {
         setSupportActionBar(toolbar)
@@ -200,9 +203,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun logout(){
+    fun logout() {
         val sharedPrefLogin = getSharedPreferences("Login", MODE_PRIVATE)
-        sharedPrefLogin.edit().putBoolean("isLoggedIn",false).apply()
+        sharedPrefLogin.edit().putBoolean("isLoggedIn", false).apply()
     }
 
 }
